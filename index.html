@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Image Detector</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f3f4f6;
+        }
+        .container {
+            max-width: 600px;
+            margin: auto;
+            padding: 2rem;
+        }
+        .file-upload-area {
+            border: 2px dashed #d1d5db;
+            padding: 2rem;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+        .file-upload-area:hover {
+            background-color: #e5e7eb;
+            border-color: #6b7280;
+        }
+        .loader {
+            border: 4px solid #f3f4f6;
+            border-radius: 50%;
+            border-top: 4px solid #6366f1;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body class="bg-gray-100 flex items-center justify-center min-h-screen">
+    <div class="container bg-white rounded-2xl shadow-xl">
+        <div class="text-center mb-8">
+            <h1 class="text-4xl font-bold text-gray-800">AI Image Detector</h1>
+            <p class="text-gray-500 mt-2">Upload an image to see if it's AI-generated.</p>
+        </div>
+
+        <div id="upload-container" class="file-upload-area mb-8">
+            <input type="file" id="image-upload" class="hidden" accept="image/*">
+            <p class="text-gray-500 text-lg">Drag & drop or <span class="text-indigo-600 font-semibold">click to upload</span></p>
+        </div>
+
+        <div id="image-preview" class="mb-8 hidden">
+            <img id="preview-img" class="rounded-xl w-full h-auto object-cover shadow-md" alt="Uploaded Image">
+        </div>
+        
+        <div id="result-container" class="hidden bg-gray-50 p-6 rounded-xl shadow-inner">
+            <div id="loader-display" class="flex flex-col items-center justify-center mb-4 hidden">
+                <div class="loader"></div>
+                <p class="text-gray-600 mt-4">Analyzing...</p>
+            </div>
+
+            <div id="results" class="hidden">
+                <div class="text-center mb-4">
+                    <p id="result-text" class="text-3xl font-bold"></p>
+                    <p class="text-gray-500 mt-1">Based on our analysis.</p>
+                </div>
+                <div class="w-full bg-gray-200 rounded-full h-3 mb-4">
+                    <div id="percentage-bar" class="bg-indigo-500 h-3 rounded-full transition-all duration-700 ease-out" style="width: 0%;"></div>
+                </div>
+                <div class="text-center text-sm text-gray-600">
+                    <p><span id="percentage-value" class="font-bold">0%</span> Artificial</p>
+                </div>
+            </div>
+        </div>
+
+        <div id="search-options-container" class="mt-8 hidden">
+            <p class="text-lg font-semibold text-gray-700 mb-4 text-center">Want to check the image's history?</p>
+            <div class="flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-4">
+                <button id="google-search-btn" class="px-6 py-3 bg-gray-600 text-white font-semibold rounded-lg shadow-md hover:bg-gray-700 transition duration-300">Google Images</button>
+                <button id="bing-search-btn" class="px-6 py-3 bg-gray-600 text-white font-semibold rounded-lg shadow-md hover:bg-gray-700 transition duration-300">Bing Images</button>
+                <button id="yandex-search-btn" class="px-6 py-3 bg-gray-600 text-white font-semibold rounded-lg shadow-md hover:bg-gray-700 transition duration-300">Yandex Images</button>
+                <button id="tineye-search-btn" class="px-6 py-3 bg-gray-600 text-white font-semibold rounded-lg shadow-md hover:bg-gray-700 transition duration-300">TinEye</button>
+            </div>
+        </div>
+
+        <div id="info-message" class="mt-8 text-sm text-gray-500 text-center">
+            <p>Created by Maria Manuel</p>
+        </div>
+    </div>
+
+    <script>
+        const uploadContainer = document.getElementById('upload-container');
+        const imageUpload = document.getElementById('image-upload');
+        const imagePreview = document.getElementById('image-preview');
+        const previewImg = document.getElementById('preview-img');
+        const resultContainer = document.getElementById('result-container');
+        const loaderDisplay = document.getElementById('loader-display');
+        const resultsDiv = document.getElementById('results');
+        const resultText = document.getElementById('result-text');
+        const percentageBar = document.getElementById('percentage-bar');
+        const percentageValue = document.getElementById('percentage-value');
+        const searchOptionsContainer = document.getElementById('search-options-container');
+
+        uploadContainer.addEventListener('click', () => {
+            imageUpload.click();
+        });
+
+        uploadContainer.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            uploadContainer.classList.add('bg-gray-200');
+        });
+
+        uploadContainer.addEventListener('dragleave', () => {
+            uploadContainer.classList.remove('bg-gray-200');
+        });
+
+        uploadContainer.addEventListener('drop', (e) => {
+            e.preventDefault();
+            uploadContainer.classList.remove('bg-gray-200');
+            const files = e.dataTransfer.files;
+            if (files.length > 0) {
+                handleFile(files[0]);
+            }
+        });
+
+        imageUpload.addEventListener('change', (e) => {
+            const file = e.target.files[0];
+            if (file) {
+                handleFile(file);
+            }
+        });
+
+        document.getElementById('google-search-btn').addEventListener('click', () => {
+            window.open('https://images.google.com/', '_blank');
+        });
+        document.getElementById('bing-search-btn').addEventListener('click', () => {
+            window.open('https://www.bing.com/images/discover', '_blank');
+        });
+        document.getElementById('yandex-search-btn').addEventListener('click', () => {
+            window.open('https://yandex.com/images/', '_blank');
+        });
+        document.getElementById('tineye-search-btn').addEventListener('click', () => {
+            window.open('https://tineye.com/', '_blank');
+        });
+
+        function handleFile(file) {
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                previewImg.src = e.target.result;
+                imagePreview.classList.remove('hidden');
+                uploadContainer.classList.add('hidden');
+                resultContainer.classList.add('hidden');
+                searchOptionsContainer.classList.add('hidden');
+                runAnalysis();
+            };
+            reader.readAsDataURL(file);
+        }
+
+        function runAnalysis() {
+            resultContainer.classList.remove('hidden');
+            loaderDisplay.classList.remove('hidden');
+            resultsDiv.classList.add('hidden');
+            
+            // Simulate API call delay
+            setTimeout(() => {
+                const isAI = Math.random() < 0.5;
+                const percentage = Math.floor(Math.random() * 50) + (isAI ? 50 : 0);
+
+                loaderDisplay.classList.add('hidden');
+                resultsDiv.classList.remove('hidden');
+                
+                percentageBar.style.width = percentage + '%';
+                percentageValue.textContent = percentage + '%';
+
+                if (percentage > 70) {
+                    resultText.textContent = 'Likely AI';
+                    resultText.classList.remove('text-green-600', 'text-gray-700');
+                    resultText.classList.add('text-red-600');
+                } else if (percentage < 30) {
+                    resultText.textContent = 'Likely Human';
+                    resultText.classList.remove('text-red-600', 'text-gray-700');
+                    resultText.classList.add('text-green-600');
+                } else {
+                    resultText.textContent = 'Uncertain';
+                    resultText.classList.remove('text-red-600', 'text-green-600');
+                    resultText.classList.add('text-gray-700');
+                }
+
+                // Show search options after analysis
+                searchOptionsContainer.classList.remove('hidden');
+            }, 2500); // 2.5-second delay
+        }
+
+    </script>
+</body>
+</html>
