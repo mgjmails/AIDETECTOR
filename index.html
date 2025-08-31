@@ -40,6 +40,35 @@
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
         }
+        .search-container {
+            display: flex;
+            align-items: center;
+            border: 2px solid #e5e7eb;
+            border-radius: 9999px;
+            padding: 0.5rem 1rem;
+            transition: all 0.2s ease-in-out;
+        }
+        .search-container:focus-within {
+            border-color: #6366f1;
+            box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.5);
+        }
+        .search-container input {
+            border: none;
+            outline: none;
+            flex-grow: 1;
+            background: transparent;
+        }
+        .search-container button {
+            background-color: #6366f1;
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 9999px;
+            font-weight: 600;
+            transition: background-color 0.2s;
+        }
+        .search-container button:hover {
+            background-color: #4f46e5;
+        }
     </style>
 </head>
 <body class="bg-gray-100 flex items-center justify-center min-h-screen">
@@ -91,6 +120,40 @@
             </div>
         </div>
 
+        <div id="free-checkers-section" class="mt-12 p-6 bg-gray-50 rounded-2xl shadow-inner">
+            <h2 class="text-2xl font-bold text-gray-800 text-center mb-4">Free AI Image Checkers</h2>
+            <p class="text-gray-600 text-center mb-6">These free online tools are great for quick and accessible analysis. They work by using pre-trained machine learning models to analyze an image's underlying patterns, metadata, and pixel structure to determine if it has characteristics commonly found in AI-generated or manipulated content.</p>
+
+            <div class="space-y-6">
+                <!-- Hugging Face -->
+                <div class="p-4 bg-white rounded-lg shadow-md">
+                    <h3 class="text-xl font-semibold text-gray-700 mb-2">Hugging Face</h3>
+                    <form action="https://huggingface.co/spaces/umm-maybe/AI-image-detector" method="GET" target="_blank" class="search-container">
+                        <input type="text" placeholder="Paste image URL here..." class="flex-grow focus:outline-none" name="url">
+                        <button type="submit">Check</button>
+                    </form>
+                </div>
+
+                <!-- Hive AI -->
+                <div class="p-4 bg-white rounded-lg shadow-md">
+                    <h3 class="text-xl font-semibold text-gray-700 mb-2">Hive AI</h3>
+                    <form action="https://hivemoderation.com/ai-generated-content-detection" method="GET" target="_blank" class="search-container">
+                        <input type="text" placeholder="Paste image URL here..." class="flex-grow focus:outline-none" name="url">
+                        <button type="submit">Check</button>
+                    </form>
+                </div>
+                
+                <!-- Forensically -->
+                <div class="p-4 bg-white rounded-lg shadow-md">
+                    <h3 class="text-xl font-semibold text-gray-700 mb-2">Forensically</h3>
+                    <form action="https://29a.ch/photo-forensics/" method="GET" target="_blank" class="search-container">
+                        <input type="text" placeholder="Paste image URL here..." class="flex-grow focus:outline-none" name="url">
+                        <button type="submit">Check</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
         <div id="fact-check-section" class="mt-12 p-6 bg-gray-50 rounded-2xl shadow-inner">
             <h2 class="text-2xl font-bold text-gray-800 text-center mb-6">Top Fact Checking Websites</h2>
             <p class="text-gray-600 text-center mb-6">For further verification, check these reputable sources:</p>
@@ -116,6 +179,12 @@
                             </div>
                         </div>
                     </div>
+                    <div class="mt-4">
+                        <form action="https://www.snopes.com/search/" method="GET" target="_blank" class="search-container">
+                            <input type="text" placeholder="Search on Snopes" class="flex-grow focus:outline-none" name="q">
+                            <button type="submit">Check</button>
+                        </form>
+                    </div>
                 </div>
                 
                 <!-- PolitiFact -->
@@ -137,6 +206,12 @@
                                 <p class="text-xs text-gray-500 mt-1">A Threads post with this claim is false...</p>
                             </div>
                         </div>
+                    </div>
+                    <div class="mt-4">
+                        <form action="https://www.politifact.com/search/" method="GET" target="_blank" class="search-container">
+                            <input type="text" placeholder="Search on PolitiFact" class="flex-grow focus:outline-none" name="q">
+                            <button type="submit">Check</button>
+                        </form>
                     </div>
                 </div>
 
@@ -160,6 +235,12 @@
                             </div>
                         </div>
                     </div>
+                    <div class="mt-4">
+                        <form action="https://factuel.afp.com/rechercher" method="GET" target="_blank" class="search-container">
+                            <input type="text" placeholder="Search on AFP Factuel" class="flex-grow focus:outline-none" name="text">
+                            <button type="submit">Check</button>
+                        </form>
+                    </div>
                 </div>
 
                 <!-- FactCheck.org -->
@@ -181,6 +262,12 @@
                                 <p class="text-xs text-gray-500 mt-1">We look into the numbers behind a recent speech...</p>
                             </div>
                         </div>
+                    </div>
+                    <div class="mt-4">
+                        <form action="https://www.factcheck.org/" method="GET" target="_blank" class="search-container">
+                            <input type="text" placeholder="Search on FactCheck.org" class="flex-grow focus:outline-none" name="s">
+                            <button type="submit">Check</button>
+                        </form>
                     </div>
                 </div>
             </div>
