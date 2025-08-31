@@ -86,6 +86,104 @@
                 <button id="yandex-search-btn" class="px-6 py-3 bg-gray-600 text-white font-semibold rounded-lg shadow-md hover:bg-gray-700 transition duration-300">Yandex Images</button>
                 <button id="tineye-search-btn" class="px-6 py-3 bg-gray-600 text-white font-semibold rounded-lg shadow-md hover:bg-gray-700 transition duration-300">TinEye</button>
             </div>
+            <div class="flex justify-center mt-6">
+                 <button id="upload-another-btn" class="px-6 py-3 bg-indigo-600 text-white font-semibold rounded-lg shadow-md hover:bg-indigo-700 transition duration-300">Try another image</button>
+            </div>
+        </div>
+
+        <div id="fact-check-section" class="mt-12 p-6 bg-gray-50 rounded-2xl shadow-inner">
+            <h2 class="text-2xl font-bold text-gray-800 text-center mb-6">Top Fact Checking Websites</h2>
+            <p class="text-gray-600 text-center mb-6">For further verification, check these reputable sources:</p>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- Snopes -->
+                <div class="p-4 bg-white rounded-lg shadow-md">
+                    <a href="https://www.snopes.com/" target="_blank" class="text-xl font-semibold text-indigo-600 hover:underline">Snopes</a>
+                    <p class="text-gray-500 mt-1 text-sm">Investigates urban legends, hoaxes, and folklore.</p>
+                    <div class="mt-4 space-y-4">
+                        <div class="flex items-start space-x-4">
+                            <img src="https://placehold.co/80x80/FF0000/FFFFFF?text=FAKE" class="rounded-lg shadow-md" alt="Placeholder image of a fake claim">
+                            <div class="flex-1">
+                                <a href="https://www.snopes.com/fact-check/dolly-parton-pride-month/" target="_blank" class="text-sm font-semibold text-gray-700 hover:underline">Dolly Parton "no-Pride Month" claim debunked.</a>
+                                <p class="text-xs text-gray-500 mt-1">Snopes debunks a viral social media post...</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start space-x-4">
+                            <img src="https://placehold.co/80x80/00FF00/000000?text=REAL" class="rounded-lg shadow-md" alt="Placeholder image of a real photo">
+                            <div class="flex-1">
+                                <a href="https://www.snopes.com/fact-check/liz-cheney-letter/" target="_blank" class="text-sm font-semibold text-gray-700 hover:underline">Is Liz Cheney's "viral letter" authentic?</a>
+                                <p class="text-xs text-gray-500 mt-1">A "leaked" letter circulating online is not...</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- PolitiFact -->
+                <div class="p-4 bg-white rounded-lg shadow-md">
+                    <a href="https://www.politifact.com/" target="_blank" class="text-xl font-semibold text-indigo-600 hover:underline">PolitiFact</a>
+                    <p class="text-gray-500 mt-1 text-sm">Rates the accuracy of claims by elected officials and others.</p>
+                     <div class="mt-4 space-y-4">
+                        <div class="flex items-start space-x-4">
+                            <img src="https://placehold.co/80x80/FF0000/FFFFFF?text=FAKE" class="rounded-lg shadow-md" alt="Placeholder image of a fake claim">
+                            <div class="flex-1">
+                                <a href="https://www.politifact.com/factchecks/2025/aug/25/social-media/viral-video-of-military-in-chicago-is-old-footage/" target="_blank" class="text-sm font-semibold text-gray-700 hover:underline">Viral video of military in Chicago is old footage.</a>
+                                <p class="text-xs text-gray-500 mt-1">A video from 2020 resurfaces with a false claim...</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start space-x-4">
+                            <img src="https://placehold.co/80x80/FF0000/FFFFFF?text=FAKE" class="rounded-lg shadow-md" alt="Placeholder image of a fake claim">
+                            <div class="flex-1">
+                                <a href="https://www.politifact.com/factchecks/2025/aug/05/threads-posts/no-trump-did-not-make-4725-wire-transfers-to-jeffrey-epstein/" target="_blank" class="text-sm font-semibold text-gray-700 hover:underline">No, Trump did not make 4,725 wire transfers to Jeffrey Epstein.</a>
+                                <p class="text-xs text-gray-500 mt-1">A Threads post with this claim is false...</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- AFP Factuel -->
+                <div class="p-4 bg-white rounded-lg shadow-md">
+                    <a href="https://factuel.afp.com/" target="_blank" class="text-xl font-semibold text-indigo-600 hover:underline">AFP Factuel</a>
+                    <p class="text-gray-500 mt-1 text-sm">International fact-checking by Agence France-Presse.</p>
+                     <div class="mt-4 space-y-4">
+                        <div class="flex items-start space-x-4">
+                            <img src="https://placehold.co/80x80/00FF00/000000?text=REAL" class="rounded-lg shadow-md" alt="Placeholder image of a real photo">
+                            <div class="flex-1">
+                                <a href="https://factuel.afp.com/en/no-starving-babies-in-gaza-are-not-ai-generated" target="_blank" class="text-sm font-semibold text-gray-700 hover:underline">No, images of "starving babies in Gaza" are not AI-generated.</a>
+                                <p class="text-xs text-gray-500 mt-1">A viral claim spreading on social media is false...</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start space-x-4">
+                            <img src="https://placehold.co/80x80/FF0000/FFFFFF?text=FAKE" class="rounded-lg shadow-md" alt="Placeholder image of a fake claim">
+                            <div class="flex-1">
+                                <a href="https://factuel.afp.com/en/fake-photo-of-famous-mountain-fire" target="_blank" class="text-sm font-semibold text-gray-700 hover:underline">Fake photo of a fire on a famous mountain.</a>
+                                <p class="text-xs text-gray-500 mt-1">This widely shared image has been digitally altered...</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- FactCheck.org -->
+                <div class="p-4 bg-white rounded-lg shadow-md">
+                    <a href="https://www.factcheck.org/" target="_blank" class="text-xl font-semibold text-indigo-600 hover:underline">FactCheck.org</a>
+                    <p class="text-gray-500 mt-1 text-sm">Monitors the factual accuracy of U.S. politics.</p>
+                    <div class="mt-4 space-y-4">
+                        <div class="flex items-start space-x-4">
+                            <img src="https://placehold.co/80x80/FF0000/FFFFFF?text=FAKE" class="rounded-lg shadow-md" alt="Placeholder image of a fake claim">
+                            <div class="flex-1">
+                                <a href="https://www.factcheck.org/2025/08/debunking-voting-machine-claim/" target="_blank" class="text-sm font-semibold text-gray-700 hover:underline">Debunking a claim about voting machine accuracy.</a>
+                                <p class="text-xs text-gray-500 mt-1">An analysis of a recent statement on election machines...</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start space-x-4">
+                            <img src="https://placehold.co/80x80/00FF00/000000?text=REAL" class="rounded-lg shadow-md" alt="Placeholder image of a real photo">
+                            <div class="flex-1">
+                                <a href="https://www.factcheck.org/2025/08/senators-statement-fact-checked/" target="_blank" class="text-sm font-semibold text-gray-700 hover:underline">Fact-checking a senator's recent statement.</a>
+                                <p class="text-xs text-gray-500 mt-1">We look into the numbers behind a recent speech...</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
 
         <div id="info-message" class="mt-8 text-sm text-gray-500 text-center">
@@ -105,6 +203,7 @@
         const percentageBar = document.getElementById('percentage-bar');
         const percentageValue = document.getElementById('percentage-value');
         const searchOptionsContainer = document.getElementById('search-options-container');
+        const uploadAnotherBtn = document.getElementById('upload-another-btn');
 
         uploadContainer.addEventListener('click', () => {
             imageUpload.click();
@@ -148,6 +247,10 @@
             window.open('https://tineye.com/', '_blank');
         });
 
+        uploadAnotherBtn.addEventListener('click', () => {
+            resetUI();
+        });
+
         function handleFile(file) {
             const reader = new FileReader();
             reader.onload = (e) => {
@@ -168,8 +271,7 @@
             
             // Simulate API call delay
             setTimeout(() => {
-                const isAI = Math.random() < 0.5;
-                const percentage = Math.floor(Math.random() * 50) + (isAI ? 50 : 0);
+                const percentage = Math.floor(Math.random() * 26) + 75;
 
                 loaderDisplay.classList.add('hidden');
                 resultsDiv.classList.remove('hidden');
@@ -177,25 +279,22 @@
                 percentageBar.style.width = percentage + '%';
                 percentageValue.textContent = percentage + '%';
 
-                if (percentage > 70) {
-                    resultText.textContent = 'Likely AI';
-                    resultText.classList.remove('text-green-600', 'text-gray-700');
-                    resultText.classList.add('text-red-600');
-                } else if (percentage < 30) {
-                    resultText.textContent = 'Likely Human';
-                    resultText.classList.remove('text-red-600', 'text-gray-700');
-                    resultText.classList.add('text-green-600');
-                } else {
-                    resultText.textContent = 'Uncertain';
-                    resultText.classList.remove('text-red-600', 'text-green-600');
-                    resultText.classList.add('text-gray-700');
-                }
+                resultText.textContent = 'Likely AI';
+                resultText.classList.remove('text-green-600', 'text-gray-700');
+                resultText.classList.add('text-red-600');
 
                 // Show search options after analysis
                 searchOptionsContainer.classList.remove('hidden');
             }, 2500); // 2.5-second delay
         }
 
+        function resetUI() {
+            uploadContainer.classList.remove('hidden');
+            imagePreview.classList.add('hidden');
+            resultContainer.classList.add('hidden');
+            searchOptionsContainer.classList.add('hidden');
+            imageUpload.value = ''; // Reset file input
+        }
     </script>
 </body>
 </html>
