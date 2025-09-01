@@ -107,19 +107,28 @@
             </div>
         </div>
 
-        <div id="search-options-container" class="mt-8 hidden">
-            <p class="text-lg font-semibold text-gray-700 mb-4 text-center">Want to check the image's history?</p>
-            <div class="flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-4">
-                <button id="google-search-btn" class="px-6 py-3 bg-gray-600 text-white font-semibold rounded-lg shadow-md hover:bg-gray-700 transition duration-300">Google Images</button>
-                <button id="bing-search-btn" class="px-6 py-3 bg-gray-600 text-white font-semibold rounded-lg shadow-md hover:bg-gray-700 transition duration-300">Bing Images</button>
-                <button id="yandex-search-btn" class="px-6 py-3 bg-gray-600 text-white font-semibold rounded-lg shadow-md hover:bg-gray-700 transition duration-300">Yandex Images</button>
-                <button id="tineye-search-btn" class="px-6 py-3 bg-gray-600 text-white font-semibold rounded-lg shadow-md hover:bg-gray-700 transition duration-300">TinEye</button>
-            </div>
+        <!-- Add this block inside <body>, where you want the reverse image search options to appear -->
+        <div id="reverse-search" class="mt-8 hidden">
+          <p class="text-lg font-semibold text-gray-700 mb-3 text-center">Reverse image search</p>
+          <p class="text-xs text-gray-500 text-center mb-4">
+            Opens your image on popular engines in new tabs to help you find the first/earliest source.
+          </p>
+          <div class="flex flex-wrap gap-2 justify-center">
+            <button id="chip-lens" class="px-3 py-2 rounded-full text-sm font-semibold bg-gray-100 border border-gray-200 hover:bg-indigo-50 hover:border-indigo-300 text-gray-700">Google Lens</button>
+            <button id="chip-yandex" class="px-3 py-2 rounded-full text-sm font-semibold bg-gray-100 border border-gray-200 hover:bg-indigo-50 hover:border-indigo-300 text-gray-700">Yandex</button>
+            <button id="chip-tineye" class="px-3 py-2 rounded-full text-sm font-semibold bg-gray-100 border border-gray-200 hover:bg-indigo-50 hover:border-indigo-300 text-gray-700">TinEye</button>
+            <button id="chip-bing" class="px-3 py-2 rounded-full text-sm font-semibold bg-gray-100 border border-gray-200 hover:bg-indigo-50 hover:border-indigo-300 text-gray-700">Bing Visual</button>
+            <button id="chip-all" class="px-3 py-2 rounded-full text-sm font-semibold bg-gray-100 border border-gray-200 hover:bg-indigo-50 hover:border-indigo-300 text-gray-700">Search all</button>
+          </div>
+          <div class="mt-5 text-center text-xs text-gray-500">
+            <p>Tip: After it opens, sort results by <span class="font-semibold">oldest</span> when available.</p>
+            <p id="popup-note" class="hidden mt-1">If nothing opens, allow pop-ups for this page.</p>
             <div class="flex justify-center mt-6">
                  <button id="upload-another-btn" class="px-6 py-3 bg-indigo-600 text-white font-semibold rounded-lg shadow-md hover:bg-indigo-700 transition duration-300">Try another image</button>
             </div>
+          </div>
         </div>
-
+        
         <div id="free-checkers-section" class="mt-12 p-6 bg-gray-50 rounded-2xl shadow-inner">
             <h2 class="text-2xl font-bold text-gray-800 text-center mb-4">Free AI Image Checkers</h2>
             <p class="text-gray-600 text-center mb-6">These free online tools are great for quick and accessible analysis. They work by using pre-trained machine learning models to analyze an image's underlying patterns, metadata, and pixel structure to determine if it has characteristics commonly found in AI-generated or manipulated content.</p>
@@ -289,7 +298,7 @@
         const resultText = document.getElementById('result-text');
         const percentageBar = document.getElementById('percentage-bar');
         const percentageValue = document.getElementById('percentage-value');
-        const searchOptionsContainer = document.getElementById('search-options-container');
+        const reverseSearch = document.getElementById('reverse-search');
         const uploadAnotherBtn = document.getElementById('upload-another-btn');
 
         uploadContainer.addEventListener('click', () => {
@@ -320,25 +329,20 @@
                 handleFile(file);
             }
         });
-
+        
         const ENGINES = {
-            google: { label: 'Google Images', action: 'https://images.google.com/', field: 'encoded_image' },
-            bing:   { label: 'Bing Images',   open:   'https://www.bing.com/images/discover' },
-            yandex: { label: 'Yandex Images', action: 'https://yandex.com/images/search', field: 'upfile' },
-            tineye: { label: 'TinEye',        action: 'https://tineye.com/search', field: 'image' },
+          lens:   { label: 'Google Lens', action: 'https://lens.google.com/upload', field: 'encoded_image' },
+          yandex: { label: 'Yandex',      action: 'https://yandex.com/images/search', field: 'upfile' },
+          tineye: { label: 'TinEye',      action: 'https://tineye.com/search', field: 'image' },
+          bing:   { label: 'Bing Visual', open:   'https://www.bing.com/visualsearch?FORM=ILPYCZ' },
         };
         
-        document.getElementById('google-search-btn').addEventListener('click', () => {
-            window.open(ENGINES.google.open || ENGINES.google.action, '_blank');
-        });
-        document.getElementById('bing-search-btn').addEventListener('click', () => {
-            window.open(ENGINES.bing.open || ENGINES.bing.action, '_blank');
-        });
-        document.getElementById('yandex-search-btn').addEventListener('click', () => {
-            window.open(ENGINES.yandex.open || ENGINES.yandex.action, '_blank');
-        });
-        document.getElementById('tineye-search-btn').addEventListener('click', () => {
-            window.open(ENGINES.tineye.open || ENGINES.tineye.action, '_blank');
+        document.getElementById('chip-lens').addEventListener('click', () => submitToEngine('lens'));
+        document.getElementById('chip-yandex').addEventListener('click', () => submitToEngine('yandex'));
+        document.getElementById('chip-tineye').addEventListener('click', () => submitToEngine('tineye'));
+        document.getElementById('chip-bing').addEventListener('click', () => submitToEngine('bing'));
+        document.getElementById('chip-all').addEventListener('click', () => {
+            ['lens','yandex','tineye','bing'].forEach((key, i) => setTimeout(() => submitToEngine(key), i*150));
         });
 
         uploadAnotherBtn.addEventListener('click', () => {
@@ -352,7 +356,7 @@
                 imagePreview.classList.remove('hidden');
                 uploadContainer.classList.add('hidden');
                 resultContainer.classList.add('hidden');
-                searchOptionsContainer.classList.add('hidden');
+                reverseSearch.classList.add('hidden');
                 runAnalysis();
             };
             reader.readAsDataURL(file);
@@ -378,7 +382,7 @@
                 resultText.classList.add('text-red-600');
 
                 // Show search options after analysis
-                searchOptionsContainer.classList.remove('hidden');
+                reverseSearch.classList.remove('hidden');
             }, 2500); // 2.5-second delay
         }
 
@@ -386,8 +390,33 @@
             uploadContainer.classList.remove('hidden');
             imagePreview.classList.add('hidden');
             resultContainer.classList.add('hidden');
-            searchOptionsContainer.classList.add('hidden');
+            reverseSearch.classList.add('hidden');
             imageUpload.value = ''; // Reset file input
+        }
+
+        function submitToEngine(key) {
+            const engine = ENGINES[key];
+            const file = imageUpload.files[0];
+            if (!file) {
+                console.error('Please upload an image first.');
+                return;
+            }
+
+            const formData = new FormData();
+            formData.append(engine.field, file);
+
+            const form = document.createElement('form');
+            form.action = engine.action;
+            form.method = 'POST';
+            form.target = '_blank';
+            form.style.display = 'none';
+
+            form.appendChild(document.createElement('input')).name = engine.field;
+            form.querySelector('input').files = imageUpload.files;
+
+            document.body.appendChild(form);
+            form.submit();
+            document.body.removeChild(form);
         }
     </script>
 </body>
