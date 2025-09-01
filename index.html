@@ -321,17 +321,24 @@
             }
         });
 
+        const ENGINES = {
+            google: { label: 'Google Images', action: 'https://images.google.com/', field: 'encoded_image' },
+            bing:   { label: 'Bing Images',   open:   'https://www.bing.com/images/discover' },
+            yandex: { label: 'Yandex Images', action: 'https://yandex.com/images/search', field: 'upfile' },
+            tineye: { label: 'TinEye',        action: 'https://tineye.com/search', field: 'image' },
+        };
+        
         document.getElementById('google-search-btn').addEventListener('click', () => {
-            window.open('https://images.google.com/', '_blank');
+            window.open(ENGINES.google.open || ENGINES.google.action, '_blank');
         });
         document.getElementById('bing-search-btn').addEventListener('click', () => {
-            window.open('https://www.bing.com/images/discover', '_blank');
+            window.open(ENGINES.bing.open || ENGINES.bing.action, '_blank');
         });
         document.getElementById('yandex-search-btn').addEventListener('click', () => {
-            window.open('https://yandex.com/images/', '_blank');
+            window.open(ENGINES.yandex.open || ENGINES.yandex.action, '_blank');
         });
         document.getElementById('tineye-search-btn').addEventListener('click', () => {
-            window.open('https://tineye.com/', '_blank');
+            window.open(ENGINES.tineye.open || ENGINES.tineye.action, '_blank');
         });
 
         uploadAnotherBtn.addEventListener('click', () => {
