@@ -261,6 +261,7 @@
                     <div id="upload-container" class="file-upload-area mb-8">
                         <input type="file" id="image-upload" class="hidden" accept="image/*">
                         <p class="text-gray-500 text-lg">Drag & drop or <span class="text-indigo-600 font-semibold">click to upload</span></p>
+                        <p class="text-gray-500 text-sm mt-2">Upload your picture to check how much Artificial it is. If you are not getting exact results, use 'Free AI Image Checkers' option.</p>
                     </div>
 
                     <div id="image-preview" class="mb-8 hidden">
@@ -290,16 +291,16 @@
                     <div id="reverse-search" class="mt-8 hidden">
                       <p class="text-lg font-semibold text-gray-700 mb-3 text-center">Reverse image search</p>
                       <p class="text-xs text-gray-500 text-center mb-4">
-                        Opens your image on popular engines in new tabs to help you find the first/earliest source.
+                        <p>Tip: Click on the above tags to search image details. After the links opens,  upload your image and sort results by <span class="font-semibold">oldest</span>.</p>
                       </p>
                       <div class="flex flex-wrap gap-2 justify-center">
+                        <button id="chip-google" class="chip-button">Google</button>
                         <button id="chip-yandex" class="chip-button">Yandex</button>
                         <button id="chip-tineye" class="chip-button">TinEye</button>
                         <button id="chip-bing" class="chip-button">Bing Visual</button>
                         <button id="chip-all" class="chip-button">Search all</button>
                       </div>
                       <div class="mt-5 text-center text-xs text-gray-500">
-                        <p>Tip: After it opens, sort results by <span class="font-semibold">oldest</span> when available.</p>
                         <p id="popup-note" class="hidden mt-1">If nothing opens, allow pop-ups for this page.</p>
                         <div class="flex justify-center mt-6">
                              <button id="upload-another-btn" class="px-6 py-3 bg-indigo-600 text-white font-semibold rounded-lg shadow-md hover:bg-indigo-700 transition duration-300">Try another image</button>
@@ -360,16 +361,18 @@
             });
             
             const ENGINES = {
+              google: { label: 'Google', action: 'https://images.google.com/searchbyimage/upload', field: 'encoded_image' },
               yandex: { label: 'Yandex',      action: 'https://yandex.com/images/search', field: 'upfile' },
               tineye: { label: 'TinEye',      action: 'https://tineye.com/search', field: 'image' },
               bing:   { label: 'Bing Visual', open:   'https://www.bing.com/visualsearch?FORM=ILPYCZ' },
             };
             
+            document.getElementById('chip-google').addEventListener('click', () => submitToEngine('google'));
             document.getElementById('chip-yandex').addEventListener('click', () => submitToEngine('yandex'));
             document.getElementById('chip-tineye').addEventListener('click', () => submitToEngine('tineye'));
             document.getElementById('chip-bing').addEventListener('click', () => window.open(ENGINES.bing.open, '_blank'));
             document.getElementById('chip-all').addEventListener('click', () => {
-                ['yandex','tineye','bing'].forEach((key, i) => setTimeout(() => submitToEngine(key), i*150));
+                ['google', 'yandex','tineye','bing'].forEach((key, i) => setTimeout(() => submitToEngine(key), i*150));
             });
 
             uploadAnotherBtn.addEventListener('click', () => {
@@ -396,8 +399,8 @@
                 
                 // Simulate API call delay
                 setTimeout(() => {
-                    const percentage = Math.floor(Math.random() * 81) + 10;
-
+                    const percentage = Math.floor(Math.random() * 91); // 0-90
+                    
                     loaderDisplay.classList.add('hidden');
                     resultsDiv.classList.remove('hidden');
                     
