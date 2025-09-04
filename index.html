@@ -48,7 +48,7 @@
         }
         @keyframes spin {
             0% { transform: rotate(0deg); }
-            100% { transform-rotate(360deg); }
+            100% { transform: rotate(360deg); }
         }
         .search-container {
             display: flex;
@@ -312,50 +312,60 @@
                 
                 // Simulate API call delay and results
                 setTimeout(() => {
-                    const resultOption = Math.floor(Math.random() * 6);
-                    let percentage = 0;
-                    
-                    if (resultOption === 0) {
-                        resultText.textContent = 'Not able to identify AI-generated content.';
-                        resultText.classList.remove('text-green-600', 'text-gray-700', 'text-red-600');
-                        resultText.classList.add('text-gray-500');
-                    } else if (resultOption === 1) {
-                        resultText.textContent = 'Please Upload again and try once more.';
-                        resultText.classList.remove('text-green-600', 'text-gray-700', 'text-red-600');
-                        resultText.classList.add('text-gray-500');
-                    } else if (resultOption === 2) {
-                        resultText.textContent = 'Looks like real content';
-                        percentage = Math.floor(Math.random() * 50); // Less than 50%
-                        resultText.classList.remove('text-gray-500', 'text-gray-700', 'text-red-600');
-                        resultText.classList.add('text-green-600');
+                    // Random number to determine the message type
+                    const rand = Math.random() * 100;
+
+                    let messageType;
+                    if (rand < 40) {
+                        messageType = 'Likely AI';
+                    } else if (rand < 65) {
+                        messageType = 'Looks like original. But AI characters also found.';
+                    } else if (rand < 85) {
+                        messageType = 'Looks like real content';
+                    } else if (rand < 90) {
+                        messageType = 'Please Upload again and try once more.';
+                    } else if (rand < 95) {
+                        messageType = 'Not able to identify AI-generated content.';
                     } else {
-                        // Original logic for AI results
-                        percentage = Math.floor(Math.random() * 91); // 0-90
-                        if (percentage < 50) {
-                            resultText.textContent = 'Less Likely AI';
-                            resultText.classList.remove('text-red-600', 'text-gray-700');
-                            resultText.classList.add('text-green-600');
-                        } else if (percentage >= 50 && percentage <= 79) {
-                            const isDocument = Math.random() < 0.5;
-                            if (isDocument) {
-                                resultText.textContent = 'Photoshop editing possible. Please check with source.';
-                            } else {
-                                resultText.textContent = 'Looks like original. But AI characters also found.';
-                            }
-                            resultText.classList.remove('text-red-600', 'text-green-600');
-                            resultText.classList.add('text-gray-700');
-                        } else {
-                            resultText.textContent = 'Likely AI';
-                            resultText.classList.remove('text-green-600', 'text-gray-700');
-                            resultText.classList.add('text-red-600');
-                        }
+                        messageType = 'Photo editing found';
+                    }
+
+                    // Assign message and percentage based on type
+                    let percentage = 0;
+                    if (messageType === 'Likely AI') {
+                        percentage = Math.floor(Math.random() * (100 - 80 + 1)) + 80;
+                    } else if (messageType === 'Looks like original. But AI characters also found.') {
+                        percentage = Math.floor(Math.random() * (79 - 51 + 1)) + 51;
+                    } else if (messageType === 'Looks like real content') {
+                        percentage = Math.floor(Math.random() * (49 - 0 + 1)) + 0;
+                    } else if (messageType === 'Photo editing found') {
+                         percentage = Math.floor(Math.random() * (79 - 51 + 1)) + 51;
                     }
                     
                     loaderDisplay.classList.add('hidden');
                     resultsDiv.classList.remove('hidden');
                     
+                    resultText.textContent = messageType;
                     percentageBar.style.width = percentage + '%';
                     percentageValue.textContent = percentage + '%';
+                    
+                    if (percentage >= 80) {
+                      resultText.classList.remove('text-green-600', 'text-gray-700');
+                      resultText.classList.add('text-red-600');
+                    } else if (percentage >= 50 && percentage < 80) {
+                      resultText.classList.remove('text-green-600', 'text-red-600');
+                      resultText.classList.add('text-gray-700');
+                    } else {
+                      resultText.classList.remove('text-gray-700', 'text-red-600');
+                      resultText.classList.add('text-green-600');
+                    }
+                    
+                    if (messageType === 'Please Upload again and try once more.' || messageType === 'Not able to identify AI-generated content.') {
+                         resultText.classList.remove('text-green-600', 'text-gray-700', 'text-red-600');
+                         resultText.classList.add('text-gray-500');
+                         document.getElementById('percentage-bar').style.width = '0%';
+                         document.getElementById('percentage-value').textContent = '...';
+                    }
 
                     reverseSearch.classList.remove('hidden');
                 }, 2500); // 2.5-second delay
