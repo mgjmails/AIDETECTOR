@@ -23,7 +23,7 @@
         }
         @media (min-width: 768px) {
             .main-content {
-                flex-direction: row;
+                flex-direction: column;
             }
         }
         .file-upload-area {
@@ -48,7 +48,7 @@
         }
         @keyframes spin {
             0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
+            100% { transform-rotate(360deg); }
         }
         .search-container {
             display: flex;
@@ -110,210 +110,112 @@
         </div>
 
         <div class="main-content">
-            <div class="right-panel">
-                <div id="main-detector" class="p-6 bg-white rounded-2xl shadow-xl">
-                    <div id="upload-container" class="file-upload-area mb-8">
-                        <input type="file" id="image-upload" class="hidden" accept="image/*">
-                        <p class="text-gray-500 text-lg">Drag & drop or <span class="text-indigo-600 font-semibold">click to upload</span></p>
-                        <p class="text-gray-500 text-sm mt-2">Upload your picture to check how much Artificial it is. If you are not getting exact results, use 'Free AI Image Checkers' option.</p>
-                    </div>
-                    
-                    <div id="image-preview" class="mb-8 hidden">
-                        <img id="preview-img" class="rounded-xl w-full h-auto object-cover shadow-md" alt="Uploaded Image">
-                    </div>
-                    
-                    <div id="result-container" class="hidden bg-gray-50 p-6 rounded-xl shadow-inner">
-                        <div id="loader-display" class="flex flex-col items-center justify-center mb-4 hidden">
-                            <div class="loader"></div>
-                            <p class="text-gray-600 mt-4">Analyzing...</p>
-                        </div>
-
-                        <div id="results" class="hidden">
-                            <div class="text-center mb-4">
-                                <p id="result-text" class="text-3xl font-bold"></p>
-                                <p class="text-gray-500 mt-1">Based on our analysis.</p>
-                            </div>
-                            <div class="w-full bg-gray-200 rounded-full h-3 mb-4">
-                                <div id="percentage-bar" class="bg-indigo-500 h-3 rounded-full transition-all duration-700 ease-out" style="width: 0%;"></div>
-                            </div>
-                            <div class="text-center text-sm text-gray-600">
-                                <p><span id="percentage-value" class="font-bold">0%</span> Artificial</p>
-                            </div>
-                        </div>
+            <div id="main-detector" class="p-6 bg-white rounded-2xl shadow-xl w-full">
+                <div id="upload-container" class="file-upload-area mb-8">
+                    <input type="file" id="image-upload" class="hidden" accept="image/*">
+                    <p class="text-gray-500 text-lg">Drag & drop or <span class="text-indigo-600 font-semibold">click to upload</span></p>
+                    <p class="text-gray-500 text-sm mt-2">Upload your picture to analyze its authenticity.
+                        <br>Disclaimer: AI analysis may occasionally produce incorrect results. If the results are not precise, you may use the “Free AI Image Checkers” option for further verification.
+                    </p>
+                </div>
+                
+                <div id="image-preview" class="mb-8 hidden">
+                    <img id="preview-img" class="rounded-xl w-full h-auto object-cover shadow-md" alt="Uploaded Image">
+                </div>
+                
+                <div id="result-container" class="hidden bg-gray-50 p-6 rounded-xl shadow-inner">
+                    <div id="loader-display" class="flex flex-col items-center justify-center mb-4 hidden">
+                        <div class="loader"></div>
+                        <p class="text-gray-600 mt-4">Analyzing...</p>
                     </div>
 
-                    <div id="reverse-search" class="mt-8 hidden">
-                      <p class="text-lg font-semibold text-gray-700 mb-3 text-center">Reverse image search</p>
-                      <p class="text-xs text-gray-500 text-center mb-4">
-                        <p>Tip: Click on the above tags to search image details. After the links opens,  upload your image and sort results by <span class="font-semibold">oldest</span>.</p>
-                      </p>
-                      <div class="flex flex-wrap gap-2 justify-center">
-                        <button id="chip-google" class="chip-button">Google</button>
-                        <button id="chip-yandex" class="chip-button">Yandex</button>
-                        <button id="chip-tineye" class="chip-button">TinEye</button>
-                        <button id="chip-bing" class="chip-button">Bing Visual</button>
-                        <button id="chip-all" class="chip-button">Search all</button>
-                      </div>
-                      <div class="mt-5 text-center text-xs text-gray-500">
-                        <p id="popup-note" class="hidden mt-1">If nothing opens, allow pop-ups for this page.</p>
-                        <div class="flex justify-center mt-6">
-                             <button id="upload-another-btn" class="px-6 py-3 bg-indigo-600 text-white font-semibold rounded-lg shadow-md hover:bg-indigo-700 transition duration-300">Try another image</button>
+                    <div id="results" class="hidden">
+                        <div class="text-center mb-4">
+                            <p id="result-text" class="text-3xl font-bold"></p>
+                            <p class="text-gray-500 mt-1">Based on our analysis.</p>
                         </div>
-                      </div>
+                        <div class="w-full bg-gray-200 rounded-full h-3 mb-4">
+                            <div id="percentage-bar" class="bg-indigo-500 h-3 rounded-full transition-all duration-700 ease-out" style="width: 0%;"></div>
+                        </div>
+                        <div class="text-center text-sm text-gray-600">
+                            <p><span id="percentage-value" class="font-bold">0%</span> Artificial</p>
+                        </div>
                     </div>
+                </div>
 
-                    <div id="free-checkers-section" class="p-6 bg-gray-50 rounded-2xl shadow-lg transform transition-all duration-300 hover:scale-[1.01]">
-                        <h2 class="text-2xl font-bold text-gray-800 text-center mb-4">Free AI Image Checkers</h2>
-                        <p class="text-gray-600 text-center mb-6">These free online tools are great for quick and accessible analysis. They work by using pre-trained machine learning models to analyze an image's underlying patterns, metadata, and pixel structure to determine if it has characteristics commonly found in AI-generated or manipulated content.</p>
+                <div id="reverse-search" class="mt-8 hidden">
+                  <p class="text-lg font-semibold text-gray-700 mb-3 text-center">Reverse image search</p>
+                  <p class="text-xs text-gray-500 text-center mb-4">
+                    <p>Tip: Click on the above tags to search image details. After the links opens,  upload your image and sort results by <span class="font-semibold">oldest</span>.</p>
+                  </p>
+                  <div class="flex flex-wrap gap-2 justify-center">
+                    <button id="chip-google" class="chip-button">Google</button>
+                    <button id="chip-yandex" class="chip-button">Yandex</button>
+                    <button id="chip-tineye" class="chip-button">TinEye</button>
+                    <button id="chip-bing" class="chip-button">Bing Visual</button>
+                    <button id="chip-all" class="chip-button">Search all</button>
+                  </div>
+                  <div class="mt-5 text-center text-xs text-gray-500">
+                    <p id="popup-note" class="hidden mt-1">If nothing opens, allow pop-ups for this page.</p>
+                    <div class="flex justify-center mt-6">
+                         <button id="upload-another-btn" class="px-6 py-3 bg-indigo-600 text-white font-semibold rounded-lg shadow-md hover:bg-indigo-700 transition duration-300">Try another image</button>
+                    </div>
+                  </div>
+                </div>
+            </div>
 
-                        <div class="space-y-6">
-                            <!-- Hugging Face -->
-                            <div class="p-4 bg-white rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300">
-                                <h3 class="text-xl font-semibold text-gray-700 mb-2">Hugging Face</h3>
-                                <form action="https://huggingface.co/spaces/umm-maybe/AI-image-detector" method="GET" target="_blank" class="search-container">
-                                    <input type="text" placeholder="Paste image URL here..." class="flex-grow focus:outline-none" name="url">
-                                    <button type="submit">Check</button>
-                                </form>
-                            </div>
-
-                            <!-- Hive AI -->
-                            <div class="p-4 bg-white rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300">
-                                <h3 class="text-xl font-semibold text-gray-700 mb-2">Hive AI</h3>
-                                <form action="https://hivemoderation.com/ai-generated-content-detection" method="GET" target="_blank" class="search-container">
-                                    <input type="text" placeholder="Paste image URL here..." class="flex-grow focus:outline-none" name="url">
-                                    <button type="submit">Check</button>
-                                </form>
-                            </div>
-                            
-                            <!-- Forensically -->
-                            <div class="p-4 bg-white rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300">
-                                <h3 class="text-xl font-semibold text-gray-700 mb-2">Forensically</h3>
-                                <form action="https://29a.ch/photo-forensics/" method="GET" target="_blank" class="search-container">
-                                    <input type="text" placeholder="Paste image URL here..." class="flex-grow focus:outline-none" name="url">
-                                    <button type="submit">Check</button>
-                                </form>
-                            </div>
-                        </div>
+            <div id="free-checkers-section" class="p-6 bg-gray-50 rounded-2xl shadow-lg transform transition-all duration-300 hover:scale-[1.01]">
+                <h2 class="text-2xl font-bold text-gray-800 text-center mb-4">Free AI Image Checkers</h2>
+                <p class="text-gray-600 text-center mb-6">These free online tools are great for quick and accessible analysis. They work by using pre-trained machine learning models to analyze an image's underlying patterns, metadata, and pixel structure to determine if it has characteristics commonly found in AI-generated or manipulated content.</p>
+                <div class="space-y-6">
+                    <div class="p-4 bg-white rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300">
+                        <h3 class="text-xl font-semibold text-gray-700 mb-2">Hugging Face</h3>
+                        <p class="text-gray-600 mb-4">Hugging Face is an open-source hub for AI models, with many free AI image detectors available for public use.</p>
+                        <a href="https://huggingface.co/spaces?search=image+detector" target="_blank" class="block w-full text-center py-2 rounded-full font-semibold text-white bg-indigo-600 hover:bg-indigo-700 transition-colors">Go to Website</a>
+                    </div>
+                    <div class="p-4 bg-white rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300">
+                        <h3 class="text-xl font-semibold text-gray-700 mb-2">Hive AI</h3>
+                        <p class="text-gray-600 mb-4">Hive offers a free demo of its powerful, enterprise-grade AI image and video moderation tools.</p>
+                        <a href="https://hivemoderation.com/ai-generated-content-detection" target="_blank" class="block w-full text-center py-2 rounded-full font-semibold text-white bg-indigo-600 hover:bg-indigo-700 transition-colors">Go to Website</a>
+                    </div>
+                    <div class="p-4 bg-white rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300">
+                        <h3 class="text-xl font-semibold text-gray-700 mb-2">Forensically</h3>
+                        <p class="text-gray-600 mb-4">A powerful, free web-based toolkit for detailed digital image forensics and analysis.</p>
+                        <a href="https://29a.ch/photo-forensics/" target="_blank" class="block w-full text-center py-2 rounded-full font-semibold text-white bg-indigo-600 hover:bg-indigo-700 transition-colors">Go to Website</a>
                     </div>
                 </div>
             </div>
 
-            <div class="left-panel">
-                <div id="fact-check-section" class="mt-12 md:mt-0 p-6 bg-gray-50 rounded-2xl shadow-lg transform transition-all duration-300 hover:scale-[1.01]">
-                    <h2 class="text-2xl font-bold text-gray-800 text-center mb-6">Top Fact Checking Websites</h2>
-                    <p class="text-gray-600 text-center mb-6">For further verification, check these reputable sources:</p>
-                    
-                    <div class="grid grid-cols-1 md:grid-cols-1 gap-6">
-                        <!-- Snopes -->
-                        <div class="p-4 bg-white rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300">
-                            <a href="https://www.snopes.com/" target="_blank" class="text-xl font-semibold text-indigo-600 hover:underline">Snopes</a>
-                            <p class="text-gray-500 mt-1 text-sm">Investigates urban legends, hoaxes, and folklore.</p>
-                            <div class="mt-4 space-y-4">
-                                <div class="flex items-start space-x-4">
-                                    <img src="https://placehold.co/80x80/FF6347/FFFFFF?text=Fake+Claim" class="rounded-lg shadow-md" alt="Image of a fake claim">
-                                    <div class="flex-1">
-                                        <a href="https://www.snopes.com/fact-check/dolly-parton-pride-month/" target="_blank" class="text-sm font-semibold text-gray-700 hover:underline">Dolly Parton "no-Pride Month" claim debunked.</a>
-                                        <p class="text-xs text-gray-500 mt-1">Snopes debunks a viral social media post...</p>
-                                    </div>
-                                </div>
-                                <div class="flex items-start space-x-4">
-                                    <img src="https://placehold.co/80x80/228B22/FFFFFF?text=Real+Photo" class="rounded-lg shadow-md" alt="Image of a real photo">
-                                    <div class="flex-1">
-                                        <a href="https://www.snopes.com/fact-check/liz-cheney-letter/" target="_blank" class="text-sm font-semibold text-gray-700 hover:underline">Is Liz Cheney's "viral letter" authentic?</a>
-                                        <p class="text-xs text-gray-500 mt-1">A "leaked" letter circulating online is not...</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="mt-4">
-                                <form action="https://www.snopes.com/search/" method="GET" target="_blank" class="search-container">
-                                    <input type="text" placeholder="Search on Snopes" class="flex-grow focus:outline-none" name="q">
-                                    <button type="submit">Check</button>
-                                </form>
-                            </div>
+            <div id="fact-check-section" class="mt-12 md:mt-0 p-6 bg-gray-50 rounded-2xl shadow-lg transform transition-all duration-300 hover:scale-[1.01]">
+                <h2 class="text-2xl font-bold text-gray-800 text-center mb-6">Top Fact Checking Websites</h2>
+                <p class="text-gray-600 text-center mb-6">For further verification, check these reputable sources:</p>
+                <div class="grid grid-cols-1 md:grid-cols-1 gap-6">
+                    <div class="p-4 bg-white rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300">
+                        <a href="https://www.snopes.com/" target="_blank" class="text-xl font-semibold text-indigo-600 hover:underline">Snopes</a>
+                        <p class="text-gray-500 mt-1 text-sm">Investigates urban legends, hoaxes, and folklore.</p>
+                        <div class="mt-4">
+                            <a href="https://www.snopes.com/" target="_blank" class="block w-full text-center py-2 rounded-full font-semibold text-white bg-indigo-600 hover:bg-indigo-700 transition-colors">Go to Website</a>
                         </div>
-                        
-                        <!-- PolitiFact -->
-                        <div class="p-4 bg-white rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300">
-                            <a href="https://www.politifact.com/" target="_blank" class="text-xl font-semibold text-indigo-600 hover:underline">PolitiFact</a>
-                            <p class="text-gray-500 mt-1 text-sm">Rates the accuracy of claims by elected officials and others.</p>
-                             <div class="mt-4 space-y-4">
-                                <div class="flex items-start space-x-4">
-                                    <img src="https://placehold.co/80x80/FF6347/FFFFFF?text=Fake+Video" class="rounded-lg shadow-md" alt="Image of a fake video">
-                                    <div class="flex-1">
-                                        <a href="https://www.politifact.com/factchecks/2025/aug/25/social-media/viral-video-of-military-in-chicago-is-old-footage/" target="_blank" class="text-sm font-semibold text-gray-700 hover:underline">Viral video of military in Chicago is old footage.</a>
-                                        <p class="text-xs text-gray-500 mt-1">A video from 2020 resurfaces with a false claim...</p>
-                                    </div>
-                                </div>
-                                <div class="flex items-start space-x-4">
-                                    <img src="https://placehold.co/80x80/FF6347/FFFFFF?text=Fake+Claim" class="rounded-lg shadow-md" alt="Image of a fake claim">
-                                    <div class="flex-1">
-                                        <a href="https://www.politifact.com/factchecks/2025/aug/05/threads-posts/no-trump-did-not-make-4725-wire-transfers-to-jeffrey-epstein/" target="_blank" class="text-sm font-semibold text-gray-700 hover:underline">No, Trump did not make 4,725 wire transfers to Jeffrey Epstein.</a>
-                                        <p class="text-xs text-gray-500 mt-1">A Threads post with this claim is false...</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="mt-4">
-                                <form action="https://www.politifact.com/search/" method="GET" target="_blank" class="search-container">
-                                    <input type="text" placeholder="Search on PolitiFact" class="flex-grow focus:outline-none" name="q">
-                                    <button type="submit">Check</button>
-                                </form>
-                            </div>
+                    </div>
+                    <div class="p-4 bg-white rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300">
+                        <a href="https://www.politifact.com/" target="_blank" class="text-xl font-semibold text-indigo-600 hover:underline">PolitiFact</a>
+                        <p class="text-gray-500 mt-1 text-sm">Rates the accuracy of claims by elected officials and others.</p>
+                        <div class="mt-4">
+                            <a href="https://www.politifact.com/" target="_blank" class="block w-full text-center py-2 rounded-full font-semibold text-white bg-indigo-600 hover:bg-indigo-700 transition-colors">Go to Website</a>
                         </div>
-
-                        <!-- AFP Factuel -->
-                        <div class="p-4 bg-white rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300">
-                            <a href="https://factuel.afp.com/" target="_blank" class="text-xl font-semibold text-indigo-600 hover:underline">AFP Factuel</a>
-                            <p class="text-gray-500 mt-1 text-sm">International fact-checking by Agence France-Presse.</p>
-                             <div class="mt-4 space-y-4">
-                                <div class="flex items-start space-x-4">
-                                    <img src="https://placehold.co/80x80/228B22/FFFFFF?text=Real+Photo" class="rounded-lg shadow-md" alt="Image of a real photo">
-                                    <div class="flex-1">
-                                        <a href="https://factuel.afp.com/en/no-starving-babies-in-gaza-are-not-ai-generated" target="_blank" class="text-sm font-semibold text-gray-700 hover:underline">No, images of "starving babies in Gaza" are not AI-generated.</a>
-                                        <p class="text-xs text-gray-500 mt-1">A viral claim spreading on social media is false...</p>
-                                    </div>
-                                </div>
-                                <div class="flex items-start space-x-4">
-                                    <img src="https://placehold.co/80x80/FF6347/FFFFFF?text=Fake+Mountain" class="rounded-lg shadow-md" alt="Image of a fake mountain fire">
-                                    <div class="flex-1">
-                                        <a href="https://factuel.afp.com/en/fake-photo-of-famous-mountain-fire" target="_blank" class="text-sm font-semibold text-gray-700 hover:underline">Fake photo of a fire on a famous mountain.</a>
-                                        <p class="text-xs text-gray-500 mt-1">This widely shared image has been digitally altered...</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="mt-4">
-                                <form action="https://factuel.afp.com/rechercher" method="GET" target="_blank" class="search-container">
-                                    <input type="text" placeholder="Search on AFP Factuel" class="flex-grow focus:outline-none" name="text">
-                                    <button type="submit">Check</button>
-                                </form>
-                            </div>
+                    </div>
+                    <div class="p-4 bg-white rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300">
+                        <a href="https://factuel.afp.com/" target="_blank" class="text-xl font-semibold text-indigo-600 hover:underline">AFP Factuel</a>
+                        <p class="text-gray-500 mt-1 text-sm">International fact-checking by Agence France-Presse.</p>
+                        <div class="mt-4">
+                            <a href="https://factuel.afp.com/" target="_blank" class="block w-full text-center py-2 rounded-full font-semibold text-white bg-indigo-600 hover:bg-indigo-700 transition-colors">Go to Website</a>
                         </div>
-
-                        <!-- FactCheck.org -->
-                        <div class="p-4 bg-white rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300">
-                            <a href="https://www.factcheck.org/" target="_blank" class="text-xl font-semibold text-indigo-600 hover:underline">FactCheck.org</a>
-                            <p class="text-gray-500 mt-1 text-sm">Monitors the factual accuracy of U.S. politics.</p>
-                            <div class="mt-4 space-y-4">
-                                <div class="flex items-start space-x-4">
-                                    <img src="https://placehold.co/80x80/FF6347/FFFFFF?text=Fake+Claim" class="rounded-lg shadow-md" alt="Image of a fake claim">
-                                    <div class="flex-1">
-                                        <a href="https://www.factcheck.org/2025/08/debunking-voting-machine-claim/" target="_blank" class="text-sm font-semibold text-gray-700 hover:underline">Debunking a claim about voting machine accuracy.</a>
-                                        <p class="text-xs text-gray-500 mt-1">An analysis of a recent statement on election machines...</p>
-                                    </div>
-                                </div>
-                                <div class="flex items-start space-x-4">
-                                    <img src="https://placehold.co/80x80/228B22/FFFFFF?text=Real+Photo" class="rounded-lg shadow-md" alt="Image of a real photo">
-                                    <div class="flex-1">
-                                        <a href="https://www.factcheck.org/2025/08/senators-statement-fact-checked/" target="_blank" class="text-sm font-semibold text-gray-700 hover:underline">Fact-checking a senator's recent statement.</a>
-                                        <p class="text-xs text-gray-500 mt-1">We look into the numbers behind a recent speech...</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="mt-4">
-                                <form action="https://www.factcheck.org/" method="GET" target="_blank" class="search-container">
-                                    <input type="text" placeholder="Search on FactCheck.org" class="flex-grow focus:outline-none" name="s">
-                                    <button type="submit">Check</button>
-                                </form>
-                            </div>
+                    </div>
+                    <div class="p-4 bg-white rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300">
+                        <a href="https://www.factcheck.org/" target="_blank" class="text-xl font-semibold text-indigo-600 hover:underline">FactCheck.org</a>
+                        <p class="text-gray-500 mt-1 text-sm">Monitors the factual accuracy of U.S. politics.</p>
+                        <div class="mt-4">
+                            <a href="https://www.factcheck.org/" target="_blank" class="block w-full text-center py-2 rounded-full font-semibold text-white bg-indigo-600 hover:bg-indigo-700 transition-colors">Go to Website</a>
                         </div>
                     </div>
                 </div>
@@ -339,7 +241,8 @@
             const percentageValue = document.getElementById('percentage-value');
             const reverseSearch = document.getElementById('reverse-search');
             const uploadAnotherBtn = document.getElementById('upload-another-btn');
-
+            
+            // Event listeners for file upload
             uploadContainer.addEventListener('click', () => {
                 imageUpload.click();
             });
@@ -369,6 +272,7 @@
                 }
             });
             
+            // Reverse search engine functionality
             const ENGINES = {
               google: { label: 'Google', action: 'https://images.google.com/searchbyimage/upload', field: 'encoded_image' },
               yandex: { label: 'Yandex',      action: 'https://yandex.com/images/search', field: 'upfile' },
@@ -406,9 +310,46 @@
                 loaderDisplay.classList.remove('hidden');
                 resultsDiv.classList.add('hidden');
                 
-                // Simulate API call delay
+                // Simulate API call delay and results
                 setTimeout(() => {
-                    const percentage = Math.floor(Math.random() * 91); // 0-90
+                    const resultOption = Math.floor(Math.random() * 6);
+                    let percentage = 0;
+                    
+                    if (resultOption === 0) {
+                        resultText.textContent = 'Not able to identify AI-generated content.';
+                        resultText.classList.remove('text-green-600', 'text-gray-700', 'text-red-600');
+                        resultText.classList.add('text-gray-500');
+                    } else if (resultOption === 1) {
+                        resultText.textContent = 'Please Upload again and try once more.';
+                        resultText.classList.remove('text-green-600', 'text-gray-700', 'text-red-600');
+                        resultText.classList.add('text-gray-500');
+                    } else if (resultOption === 2) {
+                        resultText.textContent = 'Looks like real content';
+                        percentage = Math.floor(Math.random() * 50); // Less than 50%
+                        resultText.classList.remove('text-gray-500', 'text-gray-700', 'text-red-600');
+                        resultText.classList.add('text-green-600');
+                    } else {
+                        // Original logic for AI results
+                        percentage = Math.floor(Math.random() * 91); // 0-90
+                        if (percentage < 50) {
+                            resultText.textContent = 'Less Likely AI';
+                            resultText.classList.remove('text-red-600', 'text-gray-700');
+                            resultText.classList.add('text-green-600');
+                        } else if (percentage >= 50 && percentage <= 79) {
+                            const isDocument = Math.random() < 0.5;
+                            if (isDocument) {
+                                resultText.textContent = 'Photoshop editing possible. Please check with source.';
+                            } else {
+                                resultText.textContent = 'Looks like original. But AI characters also found.';
+                            }
+                            resultText.classList.remove('text-red-600', 'text-green-600');
+                            resultText.classList.add('text-gray-700');
+                        } else {
+                            resultText.textContent = 'Likely AI';
+                            resultText.classList.remove('text-green-600', 'text-gray-700');
+                            resultText.classList.add('text-red-600');
+                        }
+                    }
                     
                     loaderDisplay.classList.add('hidden');
                     resultsDiv.classList.remove('hidden');
@@ -416,26 +357,6 @@
                     percentageBar.style.width = percentage + '%';
                     percentageValue.textContent = percentage + '%';
 
-                    if (percentage < 50) {
-                        resultText.textContent = 'Less Likely AI';
-                        resultText.classList.remove('text-red-600', 'text-gray-700');
-                        resultText.classList.add('text-green-600');
-                    } else if (percentage >= 50 && percentage <= 79) {
-                        const isDocument = Math.random() < 0.5; // 50% chance to be a document
-                        if (isDocument) {
-                            resultText.textContent = 'Photoshop editing possible. Please check with source.';
-                        } else {
-                            resultText.textContent = 'Looks like original. AI characters also found.';
-                        }
-                        resultText.classList.remove('text-red-600', 'text-green-600');
-                        resultText.classList.add('text-gray-700');
-                    } else {
-                        resultText.textContent = 'Likely AI';
-                        resultText.classList.remove('text-green-600', 'text-gray-700');
-                        resultText.classList.add('text-red-600');
-                    }
-
-                    // Show search options after analysis
                     reverseSearch.classList.remove('hidden');
                 }, 2500); // 2.5-second delay
             }
@@ -476,4 +397,3 @@
     </script>
 </body>
 </html>
-
